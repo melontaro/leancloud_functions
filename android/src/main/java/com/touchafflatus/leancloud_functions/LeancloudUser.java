@@ -23,7 +23,7 @@ class LeancloudUser {
         AVUser user = new AVUser();
         user.setUsername(fieldsJson.getString("username"));
         user.setPassword(fieldsJson.getString("password"));
-        if (!fieldsJson.getString("email").isEmpty()) {
+        if (fieldsJson.containsKey("email")) {
             user.setEmail(fieldsJson.getString("email"));
         }
         user.signUpInBackground().subscribe(new Observer<AVUser>() {

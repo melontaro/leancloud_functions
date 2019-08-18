@@ -59,6 +59,10 @@ public class LeancloudFunctionsPlugin implements MethodCallHandler {
                 LeancloudUser loginLeancloudUser = new LeancloudUser();
                 loginLeancloudUser.login(call, result);
                 break;
+            case "currentUser":
+                LeancloudUser currentUser = new LeancloudUser();
+                currentUser.getCurrentUser(call, result);
+                break;
             case "saveWithAbsoluteLocalPath":
                 LeancloudFile leancloudFile = new LeancloudFile();
                 leancloudFile.saveWithAbsoluteLocalPath(call, result);

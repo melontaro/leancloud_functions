@@ -8,7 +8,6 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-
   AVObject _theObject;
   String _queryObjectValue;
 
@@ -22,7 +21,7 @@ class _ListScreenState extends State<ListScreen> {
     object.save().then((object) {
       _theObject = object;
       print(object);
-      setState(() { });
+      setState(() {});
     });
   }
 
@@ -30,7 +29,7 @@ class _ListScreenState extends State<ListScreen> {
     _theObject.put("description", "updated!");
     _theObject.save().then((object) {
       print(object);
-      setState(() { });
+      setState(() {});
     });
   }
 
@@ -40,7 +39,7 @@ class _ListScreenState extends State<ListScreen> {
         print("Deleted!");
         _theObject = null;
         _queryObjectValue = null;
-        setState(() { });
+        setState(() {});
       }
     });
   }
@@ -50,7 +49,7 @@ class _ListScreenState extends State<ListScreen> {
     avQuery.get(_theObject.getObjectId()).then((object) {
       print("Queryed!");
       _queryObjectValue = object.getObjectId();
-      setState(() { });
+      setState(() {});
     });
   }
 
@@ -66,7 +65,7 @@ class _ListScreenState extends State<ListScreen> {
     avQuery.skip(1);
     avQuery.find().then((objects) {
       print("All Objects Queryed!");
-      setState(() { });
+      setState(() {});
     });
   }
 
@@ -76,6 +75,17 @@ class _ListScreenState extends State<ListScreen> {
       print(objects);
       print("Queryed!");
     });
+  }
+
+  _currentUser() async{
+    AVUser avUser = new AVUser();
+    String currentU = await avUser.currentUser();
+    if (currentU == null) {
+      print("current user is null=====================>");
+    } else {
+
+      print("current user is not  null=====================>"+currentU);
+    }
   }
 
   @override
@@ -91,7 +101,8 @@ class _ListScreenState extends State<ListScreen> {
             Text(_theObject == null
                 ? "Please click 'create an Object' button"
                 : (_theObject.get("description") == null
-                ? "ERROR" : _theObject.get("description"))),
+                    ? "ERROR"
+                    : _theObject.get("description"))),
             FlatButton(
               onPressed: _createAnObject,
               child: Text('create an Object'),
@@ -107,7 +118,8 @@ class _ListScreenState extends State<ListScreen> {
             Text(_theObject == null
                 ? "Please click 'create an Object' button first"
                 : (_queryObjectValue == null
-                ? "click the 'query the Object' button" : _queryObjectValue)),
+                    ? "click the 'query the Object' button"
+                    : _queryObjectValue)),
             FlatButton(
               onPressed: _queryObject,
               child: Text('query the Object'),
@@ -120,6 +132,10 @@ class _ListScreenState extends State<ListScreen> {
               onPressed: _queryByCQL,
               child: Text('query by CQL'),
             ),
+            FlatButton(
+              onPressed: _currentUser,
+              child: Text('Test current user'),
+            ),
             Text('login function'),
             FlatButton(
               onPressed: () {
@@ -131,8 +147,6 @@ class _ListScreenState extends State<ListScreen> {
               child: Text('LOGIN'),
             ),
           ],
-        )
-    );
+        ));
   }
-
 }
